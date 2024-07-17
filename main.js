@@ -2,25 +2,6 @@ import * as THREE from 'three';
 
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-// Vertex Shader
-const vertexShader = `
-varying vec3 vPosition;
-
-void main() {
-  vPosition = position;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-`;
-
-// Fragment Shader
-const fragmentShader = `
-varying vec3 vPosition;
-
-void main() {
-  gl_FragColor = vec4(vPosition * 0.5 + 0.5, 1.0);
-}
-`;
-
 // STAP 1: setup
 // threejs heeft altijd een scene, camera en renderer nodig. 
 // de scene kan je zien als een soort container waar al je objecten, cameras en lights in zitten
