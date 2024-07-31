@@ -2,25 +2,6 @@ import * as THREE from 'three';
 
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-// Vertex Shader
-const vertexShader = `
-varying vec3 vPosition;
-
-void main() {
-  vPosition = position;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-`;
-
-// Fragment Shader
-const fragmentShader = `
-varying vec3 vPosition;
-
-void main() {
-  gl_FragColor = vec4(vPosition * 0.5 + 0.5, 1.0);
-}
-`;
-
 // STAP 1: setup
 // threejs heeft altijd een scene, camera en renderer nodig. 
 // de scene kan je zien als een soort container waar al je objecten, cameras en lights in zitten
@@ -49,26 +30,25 @@ renderer.render( scene, camera );
 const geometry = new THREE.TorusGeometry( 10, 4, 20, 100);
 // new THREE.TorusGeometry(radius, tubeRadius, radialSegments, tubularSegments);
 
+
 // 2.a geef het materiaal
 // dit basic materiaal heeft geen light source nodig, veel andere materials wel
 // const material = new THREE.MeshBasicMaterial({ color: 0xFFAA00, wireframe: true});
 // MeshStandardMaterial reageert dus wel op licht
-// const material = new THREE.MeshStandardMaterial({ color: 0x32a8a2});
-const material = new THREE.ShaderMaterial({
-    vertexShader: vertexShader,
-    fragmentShader: fragmentShader,
-});
+
+const material = new THREE.MeshMatcapMaterial({ color: 0x32a8a2});
+
+// material.bumpMap = new THREE.Texture();
+
 const torus = new THREE.Mesh(geometry, material)
 
 scene.add(torus)
 
-const pointLight = new THREE.PointLight(0xffffff)
-// positioneren
-pointLight.position.set(1, 2, 1)
+const pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(0, 0, 0);
 
-const ambientLight = new THREE.AmbientLight(0xffffff)
-
-scene.add(pointLight, ambientLight)
+const ambientLight = new THREE.AmbientLight(0xffffff);
+scene.add(pointLight, ambientLight);
 
 
 // helpers:
@@ -93,7 +73,7 @@ function moveCamera() {
       torus.rotation.y -= 0.01;
   } else if (delta < 0) {
       // Scrolling up
-      torus.rotation.x -= 0.03;
+      torus.rotation.x -= 0.04;
       torus.rotation.y += 0.01;
   }
 
@@ -105,9 +85,7 @@ document.body.onscroll = moveCamera
 
 // optie a: render elke keer opnieuw aanroepen
 // renderer.render(scene, camera)
-
 // optie b: functie maken
-
 function animate() {
   requestAnimationFrame(animate);
 
@@ -115,7 +93,7 @@ function animate() {
 
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.0000001;
-
+  
   // controls.update();
 
   renderer.render(scene, camera);
