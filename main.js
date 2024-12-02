@@ -27,16 +27,16 @@ renderer.render( scene, camera );
 
 
 // STAP 2: geometry !
-const geometry = new THREE.TorusGeometry( 10, 4, 20, 100);
+const geometry = new THREE.TorusGeometry( 8, 4, 10, 20);
 // new THREE.TorusGeometry(radius, tubeRadius, radialSegments, tubularSegments);
 
 
 // 2.a geef het materiaal
 // dit basic materiaal heeft geen light source nodig, veel andere materials wel
-// const material = new THREE.MeshBasicMaterial({ color: 0xFFAA00, wireframe: true});
+const material = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, wireframe: true});
 // MeshStandardMaterial reageert dus wel op licht
 
-const material = new THREE.MeshMatcapMaterial({ color: 0x32a8a2});
+// const material = new THREE.MeshMatcapMaterial({ color: });
 
 // material.bumpMap = new THREE.Texture();
 
@@ -70,11 +70,11 @@ function moveCamera() {
   if (delta > 0) {
       // Scrolling down
       torus.rotation.x += 0.03;
-      torus.rotation.y -= 0.01;
+      // torus.rotation.y -= 0.01;
   } else if (delta < 0) {
       // Scrolling up
       torus.rotation.x -= 0.04;
-      torus.rotation.y += 0.01;
+      // torus.rotation.y += 0.01;
   }
 
   // Update previous scroll position
@@ -92,7 +92,7 @@ function animate() {
   // anaimtie toevoegen
 
   torus.rotation.x += 0.01;
-  torus.rotation.y += 0.0000001;
+  // torus.rotation.y += 0.01;
   
   // controls.update();
 
